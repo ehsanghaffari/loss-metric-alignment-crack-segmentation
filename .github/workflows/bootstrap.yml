@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
 
@@ -27,8 +27,9 @@ jobs:
         run: |
           set -euo pipefail
           cat .bootstrap/text_bundle.b64.part-* | base64 --decode > /tmp/paper-repository.tar.gz
-          echo "ff6c30bc837d5dfb264c12a355c5cabc79e8be8fe534667aeb81a7e1ada632ab  /tmp/paper-repository.tar.gz" | sha256sum --check --strict
+          echo "721a09215dfd6f00d727096b4a747984999ee4275d9d602238acae9e6b4e3841  /tmp/paper-repository.tar.gz" | sha256sum --check --strict
           tar -xzf /tmp/paper-repository.tar.gz -C .
+          rm -f .github/workflows/pages.yml
 
       - name: Commit paper website, code, protocol, and results
         shell: bash
