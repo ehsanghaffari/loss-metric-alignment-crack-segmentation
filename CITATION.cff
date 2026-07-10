@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please cite the associated manuscript and this software repository."
+title: "Loss–Metric Alignment for Deep Crack Segmentation"
+type: software
+authors:
+  - family-names: Ghaffari
+    given-names: Ehsan
+    orcid: "https://orcid.org/0009-0002-6053-4269"
+  - family-names: Wang
+    given-names: Kelvin C. P.
+    orcid: "https://orcid.org/0000-0003-1346-3402"
+  - family-names: Barutha
+    given-names: Philip
+    orcid: "https://orcid.org/0000-0003-0897-1533"
+repository-code: "https://github.com/ehsanghaffari/loss-metric-alignment-crack-segmentation"
+url: "https://ehsanghaffari.github.io/loss-metric-alignment-crack-segmentation/"
+license: MIT
+version: 1.0.0
+date-released: 2026-07-10
+preferred-citation:
+  type: article
+  title: "What to Optimize and How to Measure It: Loss–Metric Alignment for Deep Crack Segmentation"
+  authors:
+    - family-names: Ghaffari
+      given-names: Ehsan
+    - family-names: Wang
+      given-names: Kelvin C. P.
+    - family-names: Barutha
+      given-names: Philip
+  year: 2026

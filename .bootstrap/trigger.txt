@@ -1,1 +1,0 @@
-Trigger repository bootstrap after workflow update.

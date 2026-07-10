@@ -1,0 +1,25 @@
+dataset,run_id,loss,seed,val_selected_threshold_recomputed,val_selected_f1_recomputed,manifest_best_val_threshold,manifest_best_val_f1,threshold_grid,threshold_comparator,threshold_match_manifest
+Crack500,bce_seed0,bce,0,0.43,0.8195563498394748,0.43,0.81956,0.01:0.99:0.01,p >= t,True
+Crack500,bce_seed1,bce,1,0.47,0.8195951649374271,0.47,0.8196,0.01:0.99:0.01,p >= t,True
+Crack500,bce_seed2,bce,2,0.44,0.8237134082488228,0.44,0.82371,0.01:0.99:0.01,p >= t,True
+Crack500,focal_seed0,focal,0,0.47,0.8214980942776781,0.47,0.8215,0.01:0.99:0.01,p >= t,True
+Crack500,focal_seed1,focal,1,0.5,0.8202499070863722,0.5,0.82025,0.01:0.99:0.01,p >= t,True
+Crack500,focal_seed2,focal,2,0.48,0.8182137468368809,0.48,0.81821,0.01:0.99:0.01,p >= t,True
+Crack500,bce_dice_seed0,bce_dice,0,0.62,0.8224712153972956,0.62,0.82247,0.01:0.99:0.01,p >= t,True
+Crack500,bce_dice_seed1,bce_dice,1,0.31,0.8207540072509353,0.31,0.82075,0.01:0.99:0.01,p >= t,True
+Crack500,bce_dice_seed2,bce_dice,2,0.5,0.8241808594865079,0.5,0.82418,0.01:0.99:0.01,p >= t,True
+Crack500,focal_tversky_seed0,focal_tversky,0,0.99,0.8177225260876892,0.99,0.81772,0.01:0.99:0.01,p >= t,True
+Crack500,focal_tversky_seed1,focal_tversky,1,0.99,0.8149844225066627,0.99,0.81498,0.01:0.99:0.01,p >= t,True
+Crack500,focal_tversky_seed2,focal_tversky,2,0.99,0.8133882423011182,0.99,0.81339,0.01:0.99:0.01,p >= t,True
+Crack500,dice_boundary_seed0,dice_boundary,0,0.01,0.8143842260300631,0.01,0.81438,0.01:0.99:0.01,p >= t,True
+Crack500,dice_boundary_seed1,dice_boundary,1,0.01,0.8148299862725921,0.01,0.81483,0.01:0.99:0.01,p >= t,True
+Crack500,dice_boundary_seed2,dice_boundary,2,0.14,0.8139617745052548,0.14,0.81396,0.01:0.99:0.01,p >= t,True
+Crack500,dice_cldice_seed0,dice_cldice,0,0.31,0.8054550632616773,0.31,0.80546,0.01:0.99:0.01,p >= t,True
+Crack500,dice_cldice_seed1,dice_cldice,1,0.5,0.8104750757522271,0.5,0.81048,0.01:0.99:0.01,p >= t,True
+Crack500,dice_cldice_seed2,dice_cldice,2,0.5,0.808810109861224,0.5,0.80881,0.01:0.99:0.01,p >= t,True
+DeepCrack,bce_seed0,bce,0,0.48,0.8783819904368745,0.48,0.87838,0.01:0.99:0.01,p >= t,True
+DeepCrack,focal_seed0,focal,0,0.49,0.8759521642877401,0.49,0.87595,0.01:0.99:0.01,p >= t,True
+DeepCrack,bce_dice_seed0,bce_dice,0,0.52,0.8900763666947015,0.52,0.89008,0.01:0.99:0.01,p >= t,True
+DeepCrack,focal_tversky_seed0,focal_tversky,0,0.99,0.8546227027418408,0.99,0.85462,0.01:0.99:0.01,p >= t,True
+DeepCrack,dice_boundary_seed0,dice_boundary,0,0.5,0.8810591702806424,0.5,0.88106,0.01:0.99:0.01,p >= t,True
+DeepCrack,dice_cldice_seed0,dice_cldice,0,0.99,0.7848172688883275,0.99,0.78482,0.01:0.99:0.01,p >= t,True

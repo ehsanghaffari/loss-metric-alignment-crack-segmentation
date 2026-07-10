@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Training artifacts
+*.pt
+*.pth
+*.ckpt
+probmaps_val/
+probmaps_test/
+OUTPUT Crack500/
+OUTPUT DeepCrack/
+
+# Local datasets
+Crack500/
+DeepCrack Dataset/
+
+# Temporary
+*.tmp
+*.log

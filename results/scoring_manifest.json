@@ -1,0 +1,22 @@
+{
+  "finished_utc": "2026-07-07T21:55:07Z",
+  "seconds": 2468.99,
+  "threshold_grid": "0.01:0.99:0.01",
+  "threshold_comparator": "p >= t",
+  "relaxed_radii": [
+    0,
+    2,
+    3,
+    4,
+    5
+  ],
+  "boundary_theta_px": 2,
+  "outputs": [
+    "validation_thresholds.csv",
+    "overlap_summary_all_thresholds.csv",
+    "advanced_summary_val_selected.csv",
+    "per_image_overlap_all_thresholds.csv",
+    "per_image_advanced_val_selected.csv",
+    "summary_by_dataset_loss_val_selected.csv"
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "generated_utc": "2026-07-10",
+  "files": [
+    {
+      "path": ".github/workflows/pages.yml",
+      "bytes": 733,
+      "sha256": "cb8f1ecb04c99738ca0c72814199c501f016f279f639760cc1d4caba97f2f444"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 269,
+      "sha256": "884f48231b7668dec4e06bb8f9790ac88f6710c19a1458b66872d493ecde6e61"
+    },
+    {
+      "path": "CITATION.cff",
+      "bytes": 1045,
+      "sha256": "a27978e82c4bf08d09368d3c765f86df0496da328e2b3cd2c628e4239ae5e53d"
+    },
+    {
+      "path": "DATASETS.md",
+      "bytes": 1187,
+      "sha256": "dd19f59a91a9bce2e6dedc4cf2664bd62be38c5e60a4c0575d9e9249a508f52c"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1071,
+      "sha256": "7cdb69eadf3369aae71c92579218a06d60a98a95448223028879e6b3384ac275"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8699,
+      "sha256": "17c93987616d0397d90af3b7af76b4713a488166d98499b562f0a3160b44474f"
+    },
+    {
+      "path": "code/score_paper_probmaps.py",
+      "bytes": 31202,
+      "sha256": "96723070772af0f00060a3719349f54df2d25105e3503ac2d6eecc63ba40ded6"
+    },
+    {
+      "path": "code/train_crack500_18runs.py",
+      "bytes": 32101,
+      "sha256": "762c82de07545328c8216dcca30350d2e40db6b187cc76821856a6b19d8e74d8"
+    },
+    {
+      "path": "code/train_deepcrack_6runs.py",
+      "bytes": 25867,
+      "sha256": "694c466c15f8cbf3285d7efc85099af2c61ded33e0d1d9b24a15938b7c665d91"
+    },
+    {
+      "path": "docs/.nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/assets/protocol-workflow.svg",
+      "bytes": 2622,
+      "sha256": "d6733a7030deee42094869a2f41cf06df23c68ec8218a9525ef62c41f935bdcf"
+    },
+    {
+      "path": "docs/assets/tolerance-ranking.svg",
+      "bytes": 9216,
+      "sha256": "fd9d459a015516b0b53f33e81e38cc38084289f5629a38fc5714fac1d2f9996d"
+    },
+    {
+      "path": "docs/index.html",
+      "bytes": 9322,
+      "sha256": "cc4777af64c5b6f14b8d13a3b82e10c2d87db5c39beb866063a1d304c58d7895"
+    },
+    {
+      "path": "docs/styles.css",
+      "bytes": 3917,
+      "sha256": "f21f9fe09e8cb53a387c407887737bd6fc49920800be48342d18ae2c699556db"
+    },
+    {
+      "path": "protocol/paper3_protocol_freeze_v1.md",
+      "bytes": 10514,
+      "sha256": "51e7ebeea587375c27239e00ccbfb095d7b0852f46c74f574690586b0dd9bc4b"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 113,
+      "sha256": "a1a7e5bb646ee76d0c3184e958668da6f880060ae260eae1dcb53f3323a5eb4f"
+    },
+    {
+      "path": "results/README.md",
+      "bytes": 1486,
+      "sha256": "0c8b2d6a508b4a8fd07e6f8322c47ea76f1251f4bb312fc8626455a0bf66bbf8"
+    },
+    {
+      "path": "results/advanced_summary_val_selected.csv",
+      "bytes": 7841,
+      "sha256": "93c3f56a77bc19b06971bc557e066041b6038218c5a71012e5c4bcde8b5decc7"
+    },
+    {
+      "path": "results/overlap_summary_all_thresholds.csv",
+      "bytes": 26715,
+      "sha256": "23cdd27deb0ac5e8d3e712a88d1c83035ecafcfd4ff90f349b5de9fae6cdefbd"
+    },
+    {
+      "path": "results/scoring_manifest.json",
+      "bytes": 517,
+      "sha256": "d84dbfaedb039635b0364c35b32590dac9f702b5349006561f78d66ba9895d80"
+    },
+    {
+      "path": "results/summary_by_dataset_loss_val_selected.csv",
+      "bytes": 6863,
+      "sha256": "9447e5876550ceebf28963494ae8c83ec99654d0444196810a9cfaaef5e493ec"
+    },
+    {
+      "path": "results/validation_thresholds.csv",
+      "bytes": 2630,
+      "sha256": "cdce290dc4ab38d606ed992b05fdf9e4013774124f644f4820943247a0bdfb60"
+    }
+  ]
+}
