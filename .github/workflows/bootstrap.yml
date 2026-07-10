@@ -1,0 +1,43 @@
+name: Bootstrap paper repository
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".bootstrap/**"
+      - ".github/workflows/bootstrap.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Reconstruct and verify repository bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/text_bundle.b64.part-* | base64 --decode > /tmp/paper-repository.tar.gz
+          echo "ff6c30bc837d5dfb264c12a355c5cabc79e8be8fe534667aeb81a7e1ada632ab  /tmp/paper-repository.tar.gz" | sha256sum --check --strict
+          tar -xzf /tmp/paper-repository.tar.gz -C .
+
+      - name: Commit paper website, code, protocol, and results
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No repository changes were produced."
+            exit 0
+          fi
+          git commit -m "Add paper website, code, protocol, and results"
+          git push
