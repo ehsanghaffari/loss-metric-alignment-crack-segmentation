@@ -2,222 +2,80 @@
 
 ## Loss–Metric Alignment for Deep Crack Segmentation
 
-[![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-segmentation-ee4c2c.svg)](https://pytorch.org/)
-[![Protocol](https://img.shields.io/badge/protocol-frozen-success.svg)](protocol/paper3_protocol_freeze_v1.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+Companion repository for **What to Optimize and How to Measure It: Loss–Metric Alignment for Deep Crack Segmentation** by Ehsan Ghaffari, Kelvin C. P. Wang, Philip Barutha, and Neda Nazemi.
 
-Companion code, frozen protocol, and result archive for:
+## Final controlled demonstration
 
-> **What to Optimize and How to Measure It: Loss–Metric Alignment for Deep Crack Segmentation**
->
-> Ehsan Ghaffari, Kelvin C. P. Wang, and Philip Barutha  
-> Department of Civil Engineering, Montana State University, Bozeman, Montana, USA
-
-**Project page:** `https://ehsanghaffari.github.io/loss-metric-alignment-crack-segmentation/`
-
-## Purpose
-
-This repository supports a review and controlled demonstration built around one question:
-
-> **Does the apparent best training loss change when the evaluation yardstick changes?**
-
-The study is not another universal loss leaderboard. It treats the training objective and evaluation metric as a coupled **claim–verifier system**. Identical saved probability maps are rescored under different metric families and protocol conventions so that ranking changes can be attributed to the evaluation yardstick rather than retraining.
-
-The analysis varies:
-
-- metric family;
-- tolerance radius;
-- threshold convention;
-- aggregation convention;
-- dataset regime; and
-- empty-mask handling.
-
-## Main finding
-
-There is no universally best loss independent of the evaluation protocol. A loss can lead under overlap while another leads under topology, boundary quality, fragmentation, or geometric quantification. On Crack500, Focal and Dice + Boundary are effectively tied under dataset-global F1, whereas Dice + clDice leads clDice but has the largest skeleton-length error. The result is an alignment problem, not a single-winner conclusion.
-
-## Controlled demonstration
-
-### Datasets and run matrix
+The current manuscript uses **4 public datasets × 6 losses × 3 seeds = 72 training runs**.
 
 | Dataset | Train | Validation | Test | Runs |
 |---|---:|---:|---:|---:|
-| Crack500 | 1,896 | 348 | 1,124 | 6 losses × 3 seeds = 18 |
-| DeepCrack | 240 | 60 | 237 | 6 losses × 1 seed = 6 |
-| **Total** |  |  |  | **24 runs** |
+| Crack500 | 1,896 | 348 | 1,124 | 18 |
+| DeepCrack | 240 | 60 | 237 | 18 |
+| CFD | 82 | 12 | 24 | 18 |
+| CrackTree260 | 182 | 26 | 52 | 18 |
+| **Total** |  |  |  | **72** |
 
-The datasets are not redistributed. Obtain Crack500 and DeepCrack from their original providers and edit only the path blocks at the top of the training and scoring scripts.
+### Fixed training protocol
 
-### Fixed model and optimization protocol
-
-- U-Net with an ImageNet-pretrained ResNet-34 encoder
-- Binary pixel-level segmentation
-- Random `448 × 448` training crops; no resizing anywhere
-- Full native-resolution evaluation with stride-compatible reflect padding and crop-back
+- U-Net with ImageNet-pretrained ResNet-34 encoder
+- Losses: BCE, Focal, BCE + Dice, Focal Tversky, Dice + Boundary, Dice + clDice
+- Seeds: `0`, `1`, `2`
+- Random `448 × 448` training crops; no resizing
 - AdamW, learning rate `1e-4`, weight decay `1e-4`
-- Cosine schedule, 100-epoch maximum, early-stopping patience 20
-- Batch size 8
-- Float32 validation and test probability maps saved for offline scoring
-- Checkpoint selection by validation dataset-global F1 maximized over the frozen threshold grid
+- Cosine learning-rate schedule
+- Batch size `8`
+- Exactly `100` epochs per run
+- **Early stopping disabled**
+- Validation dataset-global F1 used for checkpoint selection over thresholds `0.01`–`0.99`
+- Native-resolution inference with reflect padding to a multiple of 32 and crop-back
+- Float32 validation/test probability maps saved for offline scoring
+- Seed-controlled runs; bitwise determinism is not claimed
 
-### Losses
+### Loss hyperparameters
 
-1. Binary cross-entropy
-2. Focal loss
-3. BCE + Dice
-4. Focal Tversky
-5. Dice + Boundary
-6. Dice + clDice
+- Focal: `gamma = 2.0`
+- Focal Tversky: `alpha = 0.3`, `beta = 0.7`, exponent `0.75`
+- Dice + clDice: clDice weight `0.3`, 5 soft-skeleton iterations
+- Dice + Boundary: Dice weight `max(0.01, 1 - 0.01 × epoch)` with complementary boundary weight
 
-### Frozen scoring protocol
+### Offline scoring
 
-- Threshold grid: `0.01`–`0.99` in increments of `0.01`
 - Comparator: `p >= t`
-- Threshold conventions: fixed `0.5`, validation-selected, ODS, and OIS
-- Relaxed F1 radii: `r ∈ {0, 2, 3, 4, 5}` px
-- Boundary F1 tolerance: `2` px at native resolution
-- Topology: clDice and 8-connected fragmentation error
-- Quantification: dataset-level area and skeleton-length errors
-- Aggregation: per-image mean and dataset-global pooling
+- Threshold conventions: fixed `0.5`, validation-selected, ODS, OIS
+- Relaxed-F1 radii: `r ∈ {0, 2, 3, 4, 5}` px
+- Boundary F1 tolerance: `2` px
+- clDice and 8-connected fragmentation/component-count error
+- Dataset-level area and skeleton-length errors
+- Per-image and dataset-global aggregation
 - Explicit empty-mask rules and case counts
+- Paired-image bootstrap for strict aggregation reversals
 
-ODS and OIS are test-label-dependent **oracle upper bounds**, not deployable operating points. Fixed `0.5` and validation-selected thresholds are deployable conventions.
+ODS and OIS are test-label-dependent **oracle upper bounds**, not deployable operating points.
 
-## Repository structure
+## Selected final results
 
-```text
-.
-├── README.md
-├── LICENSE
-├── CITATION.cff
-├── requirements.txt
-├── code/
-│   ├── train_crack500_18runs.py
-│   ├── train_deepcrack_6runs.py
-│   └── score_paper_probmaps.py
-├── protocol/
-│   └── paper3_protocol_freeze_v1.md
-├── results/
-│   ├── validation_thresholds.csv
-│   ├── overlap_summary_all_thresholds.csv
-│   ├── advanced_summary_val_selected.csv
-│   ├── summary_by_dataset_loss_val_selected.csv
-│   ├── scoring_manifest.json
-│   ├── OFFLINE_SCORE_OUTPUT.zip
-│   └── README.md
-└── docs/
-    ├── index.html
-    ├── styles.css
-    └── assets/
-```
+At the validation-selected operating point, the highest mean global F1 is obtained by Dice + Boundary on Crack500 (`0.7392 ± 0.0004`) and DeepCrack (`0.8428 ± 0.0081`), and by BCE + Dice on CFD (`0.6822 ± 0.0044`) and CrackTree260 (`0.6309 ± 0.0231`).
 
-`OFFLINE_SCORE_OUTPUT.zip` contains the full per-image overlap and advanced-metric tables in addition to the summary outputs. The compact summary CSVs are also versioned separately for convenient inspection.
+On Crack500, Dice + clDice has the highest clDice (`0.8021 ± 0.0036`) but the largest skeleton-length error (`63.3% ± 13.3%`), illustrating the study's central loss–metric alignment point.
 
-## Installation
+For the strict-score leader on each dataset, relaxed F1 increases from `r=0` to `r=5` by `0.1516` (Crack500), `0.1246` (DeepCrack), `0.2667` (CFD), and `0.3462` (CrackTree260).
 
-```bash
-python -m venv .venv
-```
+## Final reproducibility files
 
-Windows:
+- `code/prepare_paper3_extension_splits_v2_1.py`
+- `code/train_all_four_datasets_72runs_full100_no_early_stopping_v2.py`
+- `code/score_paper_probmaps_v2_preflight.py`
+- `protocol/paper3_protocol_v2_no_early_stopping.md`
+- `results/` — compact final scoring outputs and training summaries
+- `supplementary/` — Supplementary Table S1 and Figure S1 source data
 
-```bash
-.venv\Scripts\activate
-```
+The historical v1 protocol is retained for provenance; the manuscript results use the v2 full-100-epoch/no-early-stopping pipeline.
 
-Linux/macOS:
+## Data and artifacts
 
-```bash
-source .venv/bin/activate
-```
-
-```bash
-pip install -r requirements.txt
-```
-
-## Reproduction workflow
-
-### 1. Configure paths
-
-Edit only the path blocks at the start of:
-
-```text
-code/train_crack500_18runs.py
-code/train_deepcrack_6runs.py
-code/score_paper_probmaps.py
-```
-
-### 2. Train Crack500
-
-```bash
-python code/train_crack500_18runs.py
-```
-
-This executes six losses for seeds `0`, `1`, and `2`, and saves the best checkpoint, epoch log, run manifest, and native-resolution validation/test probability maps.
-
-### 3. Train DeepCrack
-
-```bash
-python code/train_deepcrack_6runs.py
-```
-
-The script preserves the published 300/237 train/test split and creates the frozen 240/60 training/validation split using the pre-specified validation seed.
-
-### 4. Score the saved probability maps
-
-```bash
-python code/score_paper_probmaps.py
-```
-
-The scoring suite recomputes validation-selected thresholds and evaluates all four threshold conventions, tolerance radii, overlap, boundary, topology, fragmentation, quantification, aggregation, and empty-mask outputs.
-
-## Headline Crack500 results
-
-Validation-selected operating point; mean ± standard deviation across three seeds.
-
-| Loss | Global F1 | Boundary F1 | clDice | Fragmentation ↓ | Area error % ↓ | Skeleton-length error % ↓ |
-|---|---:|---:|---:|---:|---:|---:|
-| BCE | 0.733 ± 0.003 | 0.382 ± 0.003 | 0.761 ± 0.004 | 2.20 ± 0.06 | 7.3 ± 1.7 | 6.3 ± 1.1 |
-| **Focal** | **0.740 ± 0.001** | **0.389 ± 0.003** | 0.764 ± 0.001 | 2.40 ± 0.29 | 7.7 ± 2.1 | 3.3 ± 3.2 |
-| BCE + Dice | 0.736 ± 0.001 | 0.386 ± 0.003 | 0.769 ± 0.004 | 2.00 ± 0.06 | 6.1 ± 1.1 | 9.0 ± 1.7 |
-| Focal Tversky | 0.733 ± 0.002 | 0.370 ± 0.004 | 0.773 ± 0.004 | 2.07 ± 0.04 | 17.2 ± 4.3 | 7.1 ± 2.9 |
-| **Dice + Boundary** | 0.739 ± 0.001 | 0.382 ± 0.004 | 0.773 ± 0.005 | **1.94 ± 0.00** | **2.4 ± 0.6** | 16.1 ± 2.2 |
-| **Dice + clDice** | 0.725 ± 0.001 | 0.353 ± 0.011 | **0.801 ± 0.008** | 2.02 ± 0.01 | 19.1 ± 3.4 | 73.6 ± 14.4 |
-
-The 0.0003 mean-F1 separation between Focal and Dice + Boundary is smaller than their seed variation. By contrast, the Dice + clDice topology advantage is substantially larger than seed spread. This is the central metric-family flip.
-
-## Reproducibility notes
-
-- Training runs are seed-controlled but are not claimed to be bitwise deterministic.
-- Exact split lists and optional SHA-256 hashes are produced by the training scripts.
-- Validation-selected thresholds are canonically recomputed from released validation maps.
-- Loss hyperparameters are fixed in advance and never tuned per dataset or observed result.
-- Pixel scale is preserved because tolerance radii are resolution-dependent.
-- Test-set oracle thresholds are never presented as deployable performance.
-
-## Data and artifact availability
-
-Crack500 and DeepCrack are third-party datasets and are not included. Checkpoints and native-resolution probability maps can be large and should be deposited in a versioned archival release. The frozen protocol, code, scoring manifest, full per-image score archive, and summary outputs are provided here so the study is independently inspectable.
-
-## Citation
-
-```bibtex
-@article{ghaffari2026lossmetric,
-  title   = {What to Optimize and How to Measure It: Loss--Metric Alignment for Deep Crack Segmentation},
-  author  = {Ghaffari, Ehsan and Wang, Kelvin C. P. and Barutha, Philip},
-  year    = {2026},
-  note    = {Manuscript in preparation},
-  url     = {https://github.com/ehsanghaffari/loss-metric-alignment-crack-segmentation}
-}
-```
+The original Crack500, DeepCrack, CFD, and CrackTree260 datasets are not redistributed and remain subject to their providers' licenses. Compact result files and reproducibility code are versioned here. Large per-image tables and native-resolution probability maps should be distributed as versioned archival/release assets.
 
 ## License
 
-Code is released under the [MIT License](LICENSE). Dataset licenses remain with the original providers.
-
-## Contact
-
-**Ehsan Ghaffari**  
-Montana State University  
-Email: ehsanghaffari@montana.edu
+Code is released under the MIT License. Original dataset licenses remain with the dataset providers.
