@@ -61,20 +61,30 @@ On Crack500, Dice + clDice has the highest clDice (`0.8021 ± 0.0036`) but the l
 
 For the strict-score leader on each dataset, relaxed F1 increases from `r=0` to `r=5` by `0.1516` (Crack500), `0.1246` (DeepCrack), `0.2667` (CFD), and `0.3462` (CrackTree260).
 
-## Final reproducibility files
+## Reproducibility files
+
+The final v2 entry points are:
 
 - `code/prepare_paper3_extension_splits_v2_1.py`
 - `code/train_all_four_datasets_72runs_full100_no_early_stopping_v2.py`
 - `code/score_paper_probmaps_v2_preflight.py`
 - `protocol/paper3_protocol_v2_no_early_stopping.md`
-- `results/` — compact final scoring outputs and training summaries
-- `supplementary/` — Supplementary Table S1 and Figure S1 source data
 
-The historical v1 protocol is retained for provenance; the manuscript results use the v2 full-100-epoch/no-early-stopping pipeline.
+The SHA-256 identities of the exact local execution files are recorded in `FINAL_SCRIPT_IDENTITIES.md`. The exact files matching those hashes should also be preserved in the reviewer/archive package. The historical v1 protocol is retained only for provenance; the manuscript results use the v2 full-100-epoch/no-early-stopping pipeline.
+
+## Results and supplementary material
+
+- `results/summary_by_dataset_loss_val_selected.csv` — final 72-run mean/SD summary
+- `results/validation_thresholds.csv` — final per-run validation-selected thresholds
+- `results/training_*.csv` — final training summaries for all four datasets
+- `results/final_run_matrix.csv` — exact split counts and run counts
+- `supplementary/Table_S1_Dataset_Characteristics.md` — dataset/preprocessing summary
+
+Large per-image tables and native-resolution probability maps are intentionally not stored as ordinary Git files. Their archival identities and intended release status are documented in `results/README.md`.
 
 ## Data and artifacts
 
-The original Crack500, DeepCrack, CFD, and CrackTree260 datasets are not redistributed and remain subject to their providers' licenses. Compact result files and reproducibility code are versioned here. Large per-image tables and native-resolution probability maps should be distributed as versioned archival/release assets.
+The original Crack500, DeepCrack, CFD, and CrackTree260 datasets are not redistributed and remain subject to their providers' licenses. Compact result files and reproducibility documentation are versioned here. Large artifacts should be supplied through the versioned reviewer/archive release.
 
 ## License
 
