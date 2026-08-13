@@ -1,0 +1,5 @@
+dataset,train,val,test,runs
+Crack500,1896,348,1124,18
+DeepCrack,240,60,237,18
+CFD,82,12,24,18
+CrackTree260,182,26,52,18
