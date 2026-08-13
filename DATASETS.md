@@ -1,25 +1,30 @@
 # Dataset preparation
 
-The repository does not redistribute Crack500 or DeepCrack. Dataset files remain subject to the original providers’ terms.
+The final controlled demonstration uses four public crack-segmentation datasets. The repository does **not** redistribute the original image datasets; dataset files remain subject to the original providers' terms.
 
-## Crack500
+| Dataset | Train | Validation | Test | Split provenance |
+|---|---:|---:|---:|---|
+| Crack500 | 1,896 | 348 | 1,124 | Published patch-level train/validation/test split preserved |
+| DeepCrack | 240 | 60 | 237 | Published 300/237 train/test division preserved; fixed 60-image validation subset drawn from the training pool with seed `20260705` |
+| CFD | 82 | 12 | 24 | Fixed deterministic 70/10/20 partition with seed `20260705` |
+| CrackTree260 | 182 | 26 | 52 | Fixed deterministic 70/10/20 partition with seed `20260705` |
 
-The training script expects the published patch-level split:
+## Split preparation
 
-| Split | Images |
-|---|---:|
-| Train | 1,896 |
-| Validation | 348 |
-| Test | 1,124 |
+DeepCrack, CFD, and CrackTree260 split creation and integrity checks are implemented in `code/prepare_paper3_extension_splits_v2_1.py`. The script validates image/mask pairing and size agreement, checks mask encodings, writes `train.csv`, `val.csv`, and `test.csv`, and records per-file SHA-256 hashes in `split_manifest.json`.
 
-Default folder assumptions are declared in the path block at the top of `code/train_crack500_18runs.py`. Image/mask pairing is by identical stem, with `.jpg` images and `.png` masks in the uploaded script configuration.
+Crack500 uses the published patch directories directly in the final 72-run training script.
 
-## DeepCrack
+## Training and evaluation preprocessing
 
-The training script preserves the published 300-image training pool and 237-image test set. A frozen 60-image validation subset is selected once from the training pool using `VAL_SPLIT_SEED = 20260705`, leaving 240 images for training.
+- Random `448 × 448` training crops.
+- Images smaller than the crop are padded before sampling.
+- Horizontal and vertical flips each use probability 0.5.
+- Rotation is sampled from 0°, 90°, 180°, and 270°.
+- Brightness and contrast factors are sampled independently from `[0.8, 1.2]`.
+- ImageNet mean/std normalization is used.
+- No resizing is used for training or evaluation.
+- Full-image inference uses reflect padding to a multiple of 32, followed by crop-back to the original dimensions.
+- Tolerance radii are applied at the retained evaluation resolution.
 
-Default folder assumptions are declared in the path block at the top of `code/train_deepcrack_6runs.py`. Common image and mask extensions are accepted and pairing is by identical stem.
-
-## Integrity records
-
-Both training scripts can write exact split lists with SHA-256 hashes for every image and mask. These files should be archived with checkpoints and probability maps for a fully auditable release.
+See `supplementary/Table_S1_Dataset_Characteristics.md` for the manuscript-oriented dataset summary.
