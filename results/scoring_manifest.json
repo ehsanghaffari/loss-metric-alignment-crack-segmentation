@@ -1,22 +1,61 @@
 {
-  "finished_utc": "2026-07-07T21:55:07Z",
-  "seconds": 2468.99,
-  "threshold_grid": "0.01:0.99:0.01",
-  "threshold_comparator": "p >= t",
-  "relaxed_radii": [
-    0,
-    2,
-    3,
-    4,
-    5
-  ],
-  "boundary_theta_px": 2,
-  "outputs": [
-    "validation_thresholds.csv",
-    "overlap_summary_all_thresholds.csv",
-    "advanced_summary_val_selected.csv",
-    "per_image_overlap_all_thresholds.csv",
-    "per_image_advanced_val_selected.csv",
-    "summary_by_dataset_loss_val_selected.csv"
+  "study": "What to Optimize and How to Measure It: Loss-Metric Alignment for Deep Crack Segmentation",
+  "protocol_version": "v2_no_early_stopping",
+  "experimental_matrix": {
+    "datasets": ["Crack500", "DeepCrack", "CFD", "CrackTree260"],
+    "losses": ["bce", "focal", "bce_dice", "focal_tversky", "dice_boundary", "dice_cldice"],
+    "seeds": [0, 1, 2],
+    "total_runs": 72
+  },
+  "training": {
+    "architecture": "U-Net with ImageNet-pretrained ResNet-34 encoder",
+    "crop_size": 448,
+    "batch_size": 8,
+    "epochs": 100,
+    "early_stopping": false,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "scheduler": "CosineAnnealingLR(T_max=100)",
+    "determinism": "seed-controlled, not claimed bitwise deterministic",
+    "training_resize": "none",
+    "evaluation_resize": "none",
+    "evaluation_padding": "reflect_to_multiple_of_32"
+  },
+  "loss_hyperparameters": {
+    "focal_gamma": 2.0,
+    "tversky_alpha": 0.3,
+    "tversky_beta": 0.7,
+    "focal_tversky_exponent": 0.75,
+    "cldice_weight": 0.3,
+    "cldice_soft_skeleton_iterations": 5,
+    "dice_boundary_schedule": "dice_weight=max(0.01,1-0.01*epoch); boundary_weight=1-dice_weight"
+  },
+  "scoring": {
+    "threshold_grid": "0.01:0.99:0.01",
+    "threshold_comparator": "p >= t",
+    "threshold_conventions": ["fixed_0.5", "val_selected", "ODS_test_oracle", "OIS_test_oracle"],
+    "relaxed_f1_radii_px_native_resolution": [0, 2, 3, 4, 5],
+    "boundary_f1_theta_px_native_resolution": 2,
+    "skeletonization": "skimage.morphology.skeletonize; no pruning",
+    "component_connectivity": 8,
+    "bootstrap_samples": 2000,
+    "bootstrap_seed": 0,
+    "empty_mask_rule": {
+      "A_both_empty": 1.0,
+      "B_gt_empty_pred_nonempty": 0.0,
+      "C_gt_nonempty_pred_empty": 0.0,
+      "D_both_nonempty": "standard metric definition"
+    }
+  },
+  "script_sha256": {
+    "prepare_paper3_extension_splits_v2_1.py": "05ce3f0b328a9142fb4a5614526dd82f4f7b963f99730f3d1b68f1ab86dd5816",
+    "train_all_four_datasets_72runs_full100_no_early_stopping_v2.py": "6bfe0a7cb03437c450042c0574d1a5f5fd189d9bea0017fd64582988218667e4",
+    "score_paper_probmaps_v2_preflight.py": "3ef5207976937fe0a7eba3f95c0efb33e9be6da151f3330b73646e12ddabd1bd"
+  },
+  "notes": [
+    "This repository manifest summarizes the final submitted 72-run protocol.",
+    "The full run-generated scoring manifest and large per-image outputs should be retained in the archival release package.",
+    "ODS and OIS use test labels and are oracle upper bounds, not deployable operating points."
   ]
 }
