@@ -1,0 +1,1 @@
+Final repository update for the 72-run controlled demonstration: four datasets, six losses, three seeds, 100 epochs per run, and no early stopping.
