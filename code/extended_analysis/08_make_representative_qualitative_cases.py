@@ -29,11 +29,11 @@ from PIL import Image
 from scipy.ndimage import binary_dilation, binary_erosion
 from skimage.morphology import skeletonize
 
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
 DATASET_ROOT = PAPER_ROOT / "Datasets" / "Crack500"
 TEST_MASK_DIR = DATASET_ROOT / "testcrop" / "testcrop"
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
-FIGURES_ROOT = Path(os.environ.get("PAPER3_FIGURES", PAPER_ROOT / "Figures")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+FIGURES_ROOT = Path(os.environ.get("CRACKSEG_FIGURES", PAPER_ROOT / "Figures")).expanduser().resolve()
 ORIGINAL_UNET_ROOT = OUTPUT_BASE / "OUTPUT Crack500 Full 100 Epochs"
 SCORING_CSV = OUTPUT_BASE / "Extended_Analysis" / "Scoring" / "per_image_complete_results.csv"
 HOLE_CSV = OUTPUT_BASE / "Extended_Analysis" / "Skeleton_Hole_Sensitivity" / "Skeleton_Hole_Sensitivity_Per_Image.csv"
