@@ -60,10 +60,10 @@ except ImportError as exc:
 # =============================================================================
 # 1. PATHS AND FROZEN SETTINGS
 # =============================================================================
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
-DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("CRACKSEG_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
 DATASET_ROOT = DATASET_BASE / "Crack500"
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
 EXTENSION_OUTPUT_ROOT = OUTPUT_BASE / "Extension"
 
 CRACK500 = {
