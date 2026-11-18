@@ -34,10 +34,10 @@ from tqdm import tqdm
 # =============================================================================
 # 1. PATHS / CONSTANTS
 # =============================================================================
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
-DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("CRACKSEG_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
 DATASET_ROOT = DATASET_BASE / "Crack500"
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
 VAL_DIR = DATASET_ROOT / "valcrop" / "valcrop"
 TEST_DIR = DATASET_ROOT / "testcrop" / "testcrop"
 
@@ -45,7 +45,7 @@ ORIGINAL_UNET_ROOT = OUTPUT_BASE / "OUTPUT Crack500 Full 100 Epochs"
 EXTRA_UNET_ROOT = OUTPUT_BASE / "Extension" / "UNet_ResNet34_Crack500_Seeds3_4"
 DEEPLAB_ROOT = OUTPUT_BASE / "Extension" / "DeepLabV3Plus_ResNet50_Crack500"
 OUT = OUTPUT_BASE / "Extended_Analysis" / "Scoring"
-ORIGINAL_OFFLINE_ROOT = Path(os.environ.get("PAPER3_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")).expanduser().resolve()
+ORIGINAL_OFFLINE_ROOT = Path(os.environ.get("CRACKSEG_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")).expanduser().resolve()
 
 LOSS_ORDER = ["bce", "focal", "bce_dice", "focal_tversky", "dice_boundary", "dice_cldice"]
 THRESHOLDS = np.arange(1, 100, dtype=np.float64) / 100.0
