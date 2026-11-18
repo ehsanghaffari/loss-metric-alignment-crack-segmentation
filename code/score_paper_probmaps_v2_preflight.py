@@ -46,26 +46,24 @@ from scipy.ndimage import binary_erosion, distance_transform_edt, label
 from skimage.morphology import skeletonize
 
 # =============================================================================
-# 1. PATHS TO EDIT ONLY IF YOUR FOLDERS MOVE
+# 1. PORTABLE PATH CONFIGURATION
 # =============================================================================
-# All four v2 (no-early-stopping, full-100-epoch) output folders live under one base.
-OUTPUT_BASE = Path(
-    r"C:\Users\ehsanghaffari\Desktop\Ehsan\Work\Paper\Review Paper 3\Output"
-)
+PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
+SCORING_OUTPUT_ROOT = Path(
+    os.environ.get("PAPER3_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")
+).expanduser().resolve()
+
 CRACK500_OUTPUT_ROOT     = OUTPUT_BASE / "OUTPUT Crack500 Full 100 Epochs"
 DEEPCRACK_OUTPUT_ROOT    = OUTPUT_BASE / "OUTPUT DeepCrack Full 100 Epochs"
 CFD_OUTPUT_ROOT          = OUTPUT_BASE / "OUTPUT CFD Full 100 Epochs"
 CRACKTREE260_OUTPUT_ROOT = OUTPUT_BASE / "OUTPUT CrackTree260 Full 100 Epochs"
 
-DATASET_BASE = Path(r"C:\Users\ehsanghaffari\Desktop\Ehsan\Work\Dataset")
 CRACK500_ROOT     = DATASET_BASE / "Crack500"
 DEEPCRACK_ROOT    = DATASET_BASE / "DeepCrack Dataset"
 CFD_ROOT          = DATASET_BASE / "CrackForest-dataset-master"
 CRACKTREE260_ROOT = DATASET_BASE / "CrackTree260"
-
-SCORING_OUTPUT_ROOT = Path(
-    r"C:\Users\ehsanghaffari\Desktop\Ehsan\Work\Paper\Review Paper 3\OFFLINE_SCORE_OUTPUT"
-)
 
 # =============================================================================
 # 2. FROZEN SCORING CONSTANTS
