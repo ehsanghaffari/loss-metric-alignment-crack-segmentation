@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # VERSION: 2.1 - accepts low-level mask artifacts such as 3 as background
 from __future__ import annotations
-import argparse, csv, hashlib, json, random
+import argparse, csv, hashlib, json, os, random
 from pathlib import Path
 from typing import Dict, List, Sequence, Tuple
 import numpy as np
 from PIL import Image
 
 SPLIT_SEED = 20260705
-CFD_ROOT = Path(r"C:\Users\ehsanghaffari\Desktop\Ehsan\Work\Dataset\CrackForest-dataset-master")
-CRACKTREE_ROOT = Path(r"C:\Users\ehsanghaffari\Desktop\Ehsan\Work\Dataset\CrackTree260")
-DEEPCRACK_ROOT = Path(r"C:\Users\ehsanghaffari\Desktop\Ehsan\Work\Dataset\DeepCrack Dataset")
+DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", Path.cwd() / "Datasets")).expanduser().resolve()
+CFD_ROOT = DATASET_BASE / "CrackForest-dataset-master"
+CRACKTREE_ROOT = DATASET_BASE / "CrackTree260"
+DEEPCRACK_ROOT = DATASET_BASE / "DeepCrack Dataset"
 CFD_SPLIT_DIR = CFD_ROOT / "splits_paper3"
 CRACKTREE_SPLIT_DIR = CRACKTREE_ROOT / "splits_paper3"
 DEEPCRACK_SPLIT_DIR = DEEPCRACK_ROOT / "splits_paper3"
