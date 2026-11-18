@@ -20,9 +20,9 @@ import json
 import numpy as np
 import pandas as pd
 
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
-OFFLINE_SCORE_ROOT = Path(os.environ.get("PAPER3_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")).expanduser().resolve()
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
+OFFLINE_SCORE_ROOT = Path(os.environ.get("CRACKSEG_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
 SOURCE = OFFLINE_SCORE_ROOT / "per_image_advanced_val_selected.csv"
 ORIGINAL_SUMMARY = OFFLINE_SCORE_ROOT / "summary_by_dataset_loss_val_selected.csv"
 OUT = OUTPUT_BASE / "Extended_Analysis" / "Original_All_Dataset_Geometry"
