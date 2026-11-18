@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Paper 3 full-budget sensitivity experiment: 4 datasets x 6 losses x 3 seeds.
+"""Full-budget experiment: 4 datasets x 6 losses x 3 seeds.
 
 Datasets: Crack500, DeepCrack, CFD, and CrackTree260.
 Total runs: 72, trained back-to-back from scratch in separate full-budget output folders.
@@ -11,7 +11,7 @@ The best checkpoint is still selected over all 100 epochs using validation-selec
 Dataset-global F1 on the frozen 0.01-0.99 threshold grid. The final epoch checkpoint
 is also saved as ``last.pt`` so late-training behavior remains auditable.
 
-Everything else is held fixed relative to the prior Paper 3 pipelines: architecture,
+Everything else is held fixed relative to the prior study pipeline: architecture,
 preprocessing, data splits, seeds, augmentations, optimizer, scheduler, loss formulas,
 threshold grid, tie rules, native-resolution inference, and float32 probability-map export.
 
@@ -56,55 +56,57 @@ except ImportError as exc:
 # =============================================================================
 # 1. USER CONFIGURATION
 # =============================================================================
+PROJECT_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("CRACKSEG_DATASETS", PROJECT_ROOT / "Datasets")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PROJECT_ROOT / "Output")).expanduser().resolve()
+SPLIT_DIRNAME = "splits_study"
+
 DATASETS: Dict[str, Dict[str, object]] = {
     "Crack500": {
         "source_type": "paired_directories",
-        "root": r"E:\Paper03\Crack500",
-        "train_image_dir": r"E:\Paper03\Crack500\traincrop\traincrop",
-        "train_mask_dir": r"E:\Paper03\Crack500\traincrop\traincrop",
-        "val_image_dir": r"E:\Paper03\Crack500\valcrop\valcrop",
-        "val_mask_dir": r"E:\Paper03\Crack500\valcrop\valcrop",
-        "test_image_dir": r"E:\Paper03\Crack500\testcrop\testcrop",
-        "test_mask_dir": r"E:\Paper03\Crack500\testcrop\testcrop",
+        "root": DATASET_BASE / "Crack500",
+        "train_image_dir": DATASET_BASE / "Crack500" / "traincrop" / "traincrop",
+        "train_mask_dir": DATASET_BASE / "Crack500" / "traincrop" / "traincrop",
+        "val_image_dir": DATASET_BASE / "Crack500" / "valcrop" / "valcrop",
+        "val_mask_dir": DATASET_BASE / "Crack500" / "valcrop" / "valcrop",
+        "test_image_dir": DATASET_BASE / "Crack500" / "testcrop" / "testcrop",
+        "test_mask_dir": DATASET_BASE / "Crack500" / "testcrop" / "testcrop",
         "image_ext": ".jpg",
         "mask_ext": ".png",
-        "output_root": r"E:\Paper03\OUTPUT Crack500 Full 100 Epochs",
+        "output_root": OUTPUT_BASE / "OUTPUT Crack500 Full 100 Epochs",
         "expected_train": 1896,
         "expected_val": 348,
         "expected_test": 1124,
     },
-
     "DeepCrack": {
         "source_type": "split_csv",
-        "root": r"E:\Paper03\DeepCrack Dataset",
-        "train_csv": r"E:\Paper03\DeepCrack Dataset\splits_paper3\train.csv",
-        "val_csv": r"E:\Paper03\DeepCrack Dataset\splits_paper3\val.csv",
-        "test_csv": r"E:\Paper03\DeepCrack Dataset\splits_paper3\test.csv",
-        "output_root": r"E:\Paper03\OUTPUT DeepCrack Full 100 Epochs",
+        "root": DATASET_BASE / "DeepCrack Dataset",
+        "train_csv": DATASET_BASE / "DeepCrack Dataset" / SPLIT_DIRNAME / "train.csv",
+        "val_csv": DATASET_BASE / "DeepCrack Dataset" / SPLIT_DIRNAME / "val.csv",
+        "test_csv": DATASET_BASE / "DeepCrack Dataset" / SPLIT_DIRNAME / "test.csv",
+        "output_root": OUTPUT_BASE / "OUTPUT DeepCrack Full 100 Epochs",
         "expected_train": 240,
         "expected_val": 60,
         "expected_test": 237,
     },
-
     "CFD": {
         "source_type": "split_csv",
-        "root": r"E:\Paper03\CrackForest-dataset-master",
-        "train_csv": r"E:\Paper03\CrackForest-dataset-master\splits_paper3\train.csv",
-        "val_csv": r"E:\Paper03\CrackForest-dataset-master\splits_paper3\val.csv",
-        "test_csv": r"E:\Paper03\CrackForest-dataset-master\splits_paper3\test.csv",
-        "output_root": r"E:\Paper03\OUTPUT CFD Full 100 Epochs",
+        "root": DATASET_BASE / "CrackForest-dataset-master",
+        "train_csv": DATASET_BASE / "CrackForest-dataset-master" / SPLIT_DIRNAME / "train.csv",
+        "val_csv": DATASET_BASE / "CrackForest-dataset-master" / SPLIT_DIRNAME / "val.csv",
+        "test_csv": DATASET_BASE / "CrackForest-dataset-master" / SPLIT_DIRNAME / "test.csv",
+        "output_root": OUTPUT_BASE / "OUTPUT CFD Full 100 Epochs",
         "expected_train": 82,
         "expected_val": 12,
         "expected_test": 24,
     },
-
     "CrackTree260": {
         "source_type": "split_csv",
-        "root": r"E:\Paper03\CrackTree260",
-        "train_csv": r"E:\Paper03\CrackTree260\splits_paper3\train.csv",
-        "val_csv": r"E:\Paper03\CrackTree260\splits_paper3\val.csv",
-        "test_csv": r"E:\Paper03\CrackTree260\splits_paper3\test.csv",
-        "output_root": r"E:\Paper03\OUTPUT CrackTree260 Full 100 Epochs",
+        "root": DATASET_BASE / "CrackTree260",
+        "train_csv": DATASET_BASE / "CrackTree260" / SPLIT_DIRNAME / "train.csv",
+        "val_csv": DATASET_BASE / "CrackTree260" / SPLIT_DIRNAME / "val.csv",
+        "test_csv": DATASET_BASE / "CrackTree260" / SPLIT_DIRNAME / "test.csv",
+        "output_root": OUTPUT_BASE / "OUTPUT CrackTree260 Full 100 Epochs",
         "expected_train": 182,
         "expected_val": 26,
         "expected_test": 52,
@@ -129,7 +131,7 @@ HASH_SPLIT_FILES = True
 
 # Version/provenance stamp for the full-budget, no-early-stopping protocol.
 PROTOCOL_VERSION = "v2_no_early_stopping"
-GIT_COMMIT_ENV_VAR = "PAPER3_GIT_COMMIT"
+GIT_COMMIT_ENV_VAR = "CRACKSEG_GIT_COMMIT"
 
 FOCAL_GAMMA = 2.0
 TVERSKY_ALPHA = 0.3
@@ -189,7 +191,7 @@ def script_sha256() -> str:
 def git_commit_id() -> str:
     """Return the repository commit for this script, or an explicit fallback.
 
-    Set the PAPER3_GIT_COMMIT environment variable to a verified commit hash when
+    Set the CRACKSEG_GIT_COMMIT environment variable to a verified commit hash when
     launching outside a Git working tree. No commit identifier is invented.
     """
     override = os.environ.get(GIT_COMMIT_ENV_VAR, "").strip()
@@ -1209,7 +1211,7 @@ def prepare_dataset(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Train Paper 3 on Crack500, DeepCrack, CFD, and CrackTree260: "
+            "Train the study models on Crack500, DeepCrack, CFD, and CrackTree260: "
             "6 losses x 3 seeds, exactly 100 epochs per run, no early stopping."
         )
     )
