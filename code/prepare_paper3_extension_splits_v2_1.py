@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 
 SPLIT_SEED = 20260705
-DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", Path.cwd() / "Datasets")).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("CRACKSEG_DATASETS", Path.cwd() / "Datasets")).expanduser().resolve()
 CFD_ROOT = DATASET_BASE / "CrackForest-dataset-master"
 CRACKTREE_ROOT = DATASET_BASE / "CrackTree260"
 DEEPCRACK_ROOT = DATASET_BASE / "DeepCrack Dataset"
