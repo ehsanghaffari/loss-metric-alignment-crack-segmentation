@@ -10,12 +10,12 @@
     "early_stopping": false
   },
   "final_code": [
-    "code/prepare_paper3_extension_splits_v2_1.py",
+    "code/prepare_dataset_splits_v2_1.py",
     "code/train_all_four_datasets_72runs_full100_no_early_stopping_v2.py",
-    "code/score_paper_probmaps_v2_preflight.py"
+    "code/score_probability_maps_v2_preflight.py"
   ],
-  "final_protocol": "protocol/paper3_protocol_v2_no_early_stopping.md",
-  "historical_protocol": "protocol/paper3_protocol_freeze_v1.md",
+  "final_protocol": "protocol/protocol_v2_no_early_stopping.md",
+  "historical_protocol": "protocol/protocol_freeze_v1.md",
   "final_compact_results": [
     "results/summary_by_dataset_loss_val_selected.csv",
     "results/validation_thresholds.csv",
