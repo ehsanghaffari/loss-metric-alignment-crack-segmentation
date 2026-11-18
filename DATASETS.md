@@ -11,7 +11,7 @@ The final controlled demonstration uses four public crack-segmentation datasets.
 
 ## Split preparation
 
-DeepCrack, CFD, and CrackTree260 split creation and integrity checks are implemented in `code/prepare_paper3_extension_splits_v2_1.py`. The script validates image/mask pairing and size agreement, checks mask encodings, writes `train.csv`, `val.csv`, and `test.csv`, and records per-file SHA-256 hashes in `split_manifest.json`.
+DeepCrack, CFD, and CrackTree260 split creation and integrity checks are implemented in `code/prepare_dataset_splits_v2_1.py`. The script validates image/mask pairing and size agreement, checks mask encodings, writes `train.csv`, `val.csv`, and `test.csv`, and records per-file SHA-256 hashes in `split_manifest.json`.
 
 Crack500 uses the published patch directories directly in the final 72-run training script.
 
