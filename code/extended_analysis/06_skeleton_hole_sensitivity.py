@@ -38,10 +38,10 @@ from scipy import ndimage as ndi
 from skimage.morphology import skeletonize
 from tqdm import tqdm
 
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
 DATASET_ROOT = PAPER_ROOT / "Datasets" / "Crack500"
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
-FIGURES_ROOT = Path(os.environ.get("PAPER3_FIGURES", PAPER_ROOT / "Figures")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+FIGURES_ROOT = Path(os.environ.get("CRACKSEG_FIGURES", PAPER_ROOT / "Figures")).expanduser().resolve()
 TEST_MASK_DIR = DATASET_ROOT / "testcrop" / "testcrop"
 ORIGINAL_UNET_ROOT = OUTPUT_BASE / "OUTPUT Crack500 Full 100 Epochs"
 EXTRA_UNET_ROOT = OUTPUT_BASE / "Extension" / "UNet_ResNet34_Crack500_Seeds3_4"
