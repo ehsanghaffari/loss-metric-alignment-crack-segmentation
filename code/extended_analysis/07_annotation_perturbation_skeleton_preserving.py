@@ -36,9 +36,9 @@ from scipy.ndimage import binary_dilation, binary_erosion, distance_transform_ed
 from skimage.morphology import skeletonize
 from tqdm import tqdm
 
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
-DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("CRACKSEG_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
 OUT = OUTPUT_BASE / "Extended_Analysis" / "Annotation_Uncertainty_v2_SkeletonPreserving"
 
 LOSS_ORDER = ["bce", "focal", "bce_dice", "focal_tversky", "dice_boundary", "dice_cldice"]
