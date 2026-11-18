@@ -1,0 +1,10 @@
+numpy
+pandas
+Pillow
+scipy
+scikit-image
+matplotlib
+tqdm
+torch
+torchvision
+segmentation-models-pytorch
