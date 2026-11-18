@@ -48,11 +48,11 @@ from skimage.morphology import skeletonize
 # =============================================================================
 # 1. PORTABLE PATH CONFIGURATION
 # =============================================================================
-PAPER_ROOT = Path(os.environ.get("PAPER3_ROOT", Path.cwd())).expanduser().resolve()
-OUTPUT_BASE = Path(os.environ.get("PAPER3_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
-DATASET_BASE = Path(os.environ.get("PAPER3_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
+PAPER_ROOT = Path(os.environ.get("CRACKSEG_ROOT", Path.cwd())).expanduser().resolve()
+OUTPUT_BASE = Path(os.environ.get("CRACKSEG_OUTPUT", PAPER_ROOT / "Output")).expanduser().resolve()
+DATASET_BASE = Path(os.environ.get("CRACKSEG_DATASETS", PAPER_ROOT / "Datasets")).expanduser().resolve()
 SCORING_OUTPUT_ROOT = Path(
-    os.environ.get("PAPER3_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")
+    os.environ.get("CRACKSEG_OFFLINE_SCORE_OUTPUT", PAPER_ROOT / "OFFLINE_SCORE_OUTPUT")
 ).expanduser().resolve()
 
 CRACK500_OUTPUT_ROOT     = OUTPUT_BASE / "OUTPUT Crack500 Full 100 Epochs"
